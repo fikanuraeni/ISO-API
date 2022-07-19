@@ -6,5 +6,5 @@ module.exports = {
         password TEXT NOT NULL,
         role TEXT NOT NULL,
         PRIMARY KEY (id))`,
-"down": "DROP TABLE users"
+    "down": "DROP TABLE users"
 }

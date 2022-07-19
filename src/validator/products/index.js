@@ -10,4 +10,4 @@ const ProductsValidator = {
   },
 };
 
-module.exports = ProductsValidator;
+module.exports = ProductsValidator

@@ -2,11 +2,13 @@ require('dotenv').config();
 const Hapi = require('@hapi/hapi');
 const Jwt = require('@hapi/jwt');
 
+// authentication
 const authentication = require('./api/authentication');
 const Database = require('./conf/Database');
 const AuthenticationService = require('./services/mysql/AuthenticationService');
 const AuthenticationValidator = require('./validator/authentication');
 
+// products
 const products = require('./api/products');
 const ProductsService = require('./services/mysql/ProductsService');
 const ProductsValidator = require('./validator/products');
@@ -58,7 +60,7 @@ const init = async () => {
         },
       }),
     });
-  // defines external plugin
+  // defines internal plugin
   await server.register([
     {
       plugin: authentication,

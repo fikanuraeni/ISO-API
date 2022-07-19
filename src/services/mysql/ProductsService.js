@@ -1,3 +1,8 @@
+const {nanoid} = require('nanoid');
+const AuthorizationError = require('../../exceptions/AuthorizationError');
+const InvariantError =require('../../exceptions/InvariantError');
+const NotFoundError = require('../../exceptions/NotFaoundError');
+
 class ProductsService {
     #database;
   
@@ -5,7 +10,7 @@ class ProductsService {
       this.#database = database;
     }
 
-    async addProduct(title, price, description) {
+    async addProduct(userId, title, price, description) {
         const id = `product-${nanoid(16)}`
         const query = `INSERT INTO products (id, title, price, description, image)
           VALUES (
@@ -19,7 +24,7 @@ class ProductsService {
         const result = await this.#database.query(query);
     
         if (!result || result.length < 1 || result.affectedRows  < 1) {
-          throw new InvariantError('Gagal menambahkan produk')
+          throw new InvariantErroror('Gagal menambahkan produk')
         }
     
         return id;
@@ -45,7 +50,7 @@ class ProductsService {
         return result[0];
       }
 
-      async updateProductById(id, {title, price, description}) {
+      async updateProductById(id, userId,{title, price, description}) {
         const queryProduct = `SELECT id FROM products WHERE id = '${id}'`;
     
         const product = await this.#database.query(queryProduct);
@@ -67,7 +72,7 @@ class ProductsService {
         }
       }
 
-      async deleteProductById(id) {
+      async deleteProductById(id, userId) {
         const query = `DELETE FROM products WHERE id = '${id}'`;
     
         const result = await this.#database.query(query);
