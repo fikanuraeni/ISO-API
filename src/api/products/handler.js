@@ -1,4 +1,5 @@
 const { nanoid } = require('nanoid');
+
 class ProductsHandler {
     #productsService;
     #validator;
